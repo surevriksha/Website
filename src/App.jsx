@@ -11,6 +11,8 @@ const About = lazy(() => import('./pages/About'));
 const Reviews = lazy(() => import('./pages/Reviews'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Privacy = lazy(() => import('./pages/Privacy'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
 
 function PageLoader() {
   return (
@@ -42,12 +44,45 @@ function PageLoader() {
 function ScrollToTopAndAnimations() {
   const location = useLocation();
 
-  // Track page views on route changes
+  // Track page views and update dynamic Canonical URL, OG tags and Titles on route changes
   useEffect(() => {
     if (window.gtag) {
       window.gtag('config', 'G-VBMR2BYPD6', {
         page_path: location.pathname + location.search + location.hash
       });
+    }
+
+    // Dynamically update Canonical URL for SEO indexing
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    const cleanPath = location.pathname === '/' ? '' : location.pathname;
+    const fullUrl = `https://www.surevriksha.in${cleanPath}`;
+    canonical.setAttribute('href', fullUrl);
+
+    // Dynamically update og:url
+    let ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) {
+      ogUrl.setAttribute('content', fullUrl);
+    }
+
+    // Set page titles for primary routes (blog post handles its own title)
+    if (!location.pathname.startsWith('/blog/')) {
+      const pageTitles = {
+        '/': 'SureVriksha — Insurance, Loans, GST, ITR & Tax Advisor in Bhubaneswar, Odisha | Pan-India & NRI Services',
+        '/services': 'Complete Services Portfolio — Insurance, Loans, GST, ITR & CSC | SureVriksha',
+        '/about': 'About SureVriksha Financial Advisory — 10+ Years of Trusted Service',
+        '/reviews': 'Client Reviews & Ratings (4.9★) — SureVriksha Financial Advisory',
+        '/contact': 'Contact SureVriksha — Bhubaneswar Head Office & Pan-India Desk',
+        '/blog': 'Financial Insights, Guides & Scheme Updates | SureVriksha Blog',
+        '/privacy': 'Privacy Policy — SureVriksha Financial Advisory'
+      };
+      if (pageTitles[location.pathname]) {
+        document.title = pageTitles[location.pathname];
+      }
     }
   }, [location.pathname, location.search, location.hash]);
 
@@ -240,6 +275,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/about" element={<About />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/contact" element={<Contact />} />

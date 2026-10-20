@@ -40,6 +40,7 @@ export default function Header() {
           <ul className="nav-links" role="list">
             <li><NavLink to="/" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Home</NavLink></li>
             <li><NavLink to="/services" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Services</NavLink></li>
+            <li><NavLink to="/blog" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Blog &amp; Guides</NavLink></li>
             <li><NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>About</NavLink></li>
             <li><NavLink to="/reviews" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Reviews</NavLink></li>
             <li><NavLink to="/contact" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Contact</NavLink></li>
@@ -60,6 +61,7 @@ export default function Header() {
         <ul>
           <li><Link to="/" className="nav-link">Home</Link></li>
           <li><Link to="/services" className="nav-link">Services</Link></li>
+          <li><Link to="/blog" className="nav-link">Blog &amp; Guides</Link></li>
           <li><Link to="/about" className="nav-link">About</Link></li>
           <li><Link to="/reviews" className="nav-link">Reviews</Link></li>
           <li><Link to="/contact" className="nav-link">Contact</Link></li>

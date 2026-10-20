@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, useLocation, Link } from 'react-router-dom';
 
 export default function Services() {
-  const [activeTab, setActiveTab] = useState('insurance-services');
+  const [activeTab, setActiveTab] = useState('all');
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
 
@@ -14,14 +14,22 @@ export default function Services() {
     const taxHashes = ['#gst', '#itr', '#company', '#msme', '#licenses', '#gem', '#oem', '#stock-audit', '#pf-esic', '#payroll-compliance', '#dsc-trademark', '#fssai-iso', '#startup-iec', '#govt-subsidies'];
     const govtHashes = ['#certificates', '#id-corrections', '#rto', '#passport-visa', '#student-desk', '#caste', '#income', '#residence', '#pan-change', '#aadhaar-change', '#voter-change', '#scholarships', '#eshram-welfare', '#utility-services'];
 
-    if (tabParam === 'tax' || taxHashes.includes(hash)) {
+    if (tabParam === 'tax') {
       setActiveTab('tax-services');
-    } else if (tabParam === 'govt' || govtHashes.includes(hash)) {
+    } else if (tabParam === 'govt') {
       setActiveTab('govt-services');
-    } else if (tabParam === 'insurance' || insuranceHashes.includes(hash)) {
+    } else if (tabParam === 'insurance') {
       setActiveTab('insurance-services');
+    } else if (tabParam === 'all') {
+      setActiveTab('all');
+    } else if (insuranceHashes.includes(hash)) {
+      setActiveTab('insurance-services');
+    } else if (taxHashes.includes(hash)) {
+      setActiveTab('tax-services');
+    } else if (govtHashes.includes(hash)) {
+      setActiveTab('govt-services');
     } else {
-      setActiveTab('insurance-services');
+      setActiveTab('all');
     }
 
     if (hash) {
@@ -35,7 +43,9 @@ export default function Services() {
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);
     setSearchParams(
-      tabId === 'tax-services' 
+      tabId === 'all'
+        ? { tab: 'all' }
+        : tabId === 'tax-services' 
         ? { tab: 'tax' } 
         : tabId === 'govt-services' 
         ? { tab: 'govt' } 
@@ -46,39 +56,89 @@ export default function Services() {
   return (
     <main>
       <section className="page-hero">
-        <div className="page-hero-eyebrow">Our Services</div>
-        <h1>Complete Protection for<br /><em style={{ color: 'var(--gold-light)' }}>Every Chapter of Your Life</em></h1>
-        <p>From your health to your wealth — we offer expert-curated insurance and financial plans tailored to your exact needs.</p>
+        <div className="page-hero-eyebrow">Our Complete Services Portfolio</div>
+        <h1>Complete Protection &amp; Compliance for<br /><em style={{ color: 'var(--gold-light)' }}>Every Chapter of Your Life &amp; Business</em></h1>
+        <p>From healthcare and family protection to business loans, GST, ITR, company setup, and CSC government desk — all under one roof.</p>
         <div className="page-hero-line"></div>
       </section>
 
+      {/* Quick Jump Bar */}
+      <div className="container" style={{ marginTop: '2rem', marginBottom: '1rem' }}>
+        <div className="services-quick-nav-pills" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--green-deeper)', alignSelf: 'center', marginRight: '0.5rem' }}>⚡ Quick Jump:</span>
+          {[
+            { label: '🏥 Health', hash: '#health', tab: 'insurance-services' },
+            { label: '🛡️ Term Life', hash: '#term', tab: 'insurance-services' },
+            { label: '💰 Loans & Subsidies', hash: '#loan-advisory', tab: 'insurance-services' },
+            { label: '🧾 GST Filing', hash: '#gst', tab: 'tax-services' },
+            { label: '📊 ITR Filing', hash: '#itr', tab: 'tax-services' },
+            { label: '🏢 Company Setup', hash: '#company', tab: 'tax-services' },
+            { label: '⚙️ OEM & GEM', hash: '#oem', tab: 'tax-services' },
+            { label: '📜 CSC Certificates', hash: '#certificates', tab: 'govt-services' },
+            { label: '🛂 Passport & VISA', hash: '#passport-visa', tab: 'govt-services' }
+          ].map((item, idx) => (
+            <button
+              key={idx}
+              type="button"
+              className="quick-jump-chip"
+              onClick={() => {
+                if (activeTab !== 'all' && activeTab !== item.tab) {
+                  setActiveTab(item.tab);
+                }
+                setTimeout(() => {
+                  const el = document.querySelector(item.hash);
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+              }}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Tab Switching Container */}
-      <div className="tab-container" style={{ marginTop: '3rem', marginBottom: 0 }}>
+      <div className="tab-container" style={{ marginTop: '1rem', marginBottom: '2rem' }}>
         <div className="tab-buttons">
+          <button 
+            className={`tab-btn ${activeTab === 'all' ? 'active' : ''}`}
+            onClick={() => handleTabChange('all')}
+          >
+            🌟 All Verticals (Complete Portfolio)
+          </button>
           <button 
             className={`tab-btn ${activeTab === 'insurance-services' ? 'active' : ''}`}
             onClick={() => handleTabChange('insurance-services')}
           >
-            Insurance & Wealth
+            🛡️ Insurance &amp; Wealth
           </button>
           <button 
             className={`tab-btn ${activeTab === 'tax-services' ? 'active' : ''}`}
             onClick={() => handleTabChange('tax-services')}
           >
-            Tax & Corporate Services
+            💼 Tax, Corporate &amp; Loans
           </button>
           <button 
             className={`tab-btn ${activeTab === 'govt-services' ? 'active' : ''}`}
             onClick={() => handleTabChange('govt-services')}
           >
-            Govt & Student Services
+            📜 Govt &amp; Student Services
           </button>
         </div>
       </div>
 
       {/* INSURANCE & WEALTH TAB PANEL */}
-      {activeTab === 'insurance-services' && (
+      {(activeTab === 'all' || activeTab === 'insurance-services') && (
         <div id="insurance-services" className="tab-panel active">
+          {activeTab === 'all' && (
+            <div className="container" style={{ paddingTop: '2rem', paddingBottom: '1rem' }}>
+              <div className="vertical-section-header">
+                <span className="vsh-badge">VERTICAL 1 OF 3</span>
+                <h2>🛡️ Insurance, Risk Protection &amp; Wealth Planning</h2>
+                <p>30+ Insurer partners, cashless hospital networks, zero-commission bias, and lifetime claim assistance.</p>
+              </div>
+            </div>
+          )}
           {/* HEALTH */}
           <section className="service-detail-section" id="health">
             <div className="container">
@@ -423,8 +483,17 @@ export default function Services() {
       )}
 
       {/* TAX & CORPORATE SERVICES TAB PANEL */}
-      {activeTab === 'tax-services' && (
+      {(activeTab === 'all' || activeTab === 'tax-services') && (
         <div id="tax-services" className="tab-panel active">
+          {activeTab === 'all' && (
+            <div className="container" style={{ paddingTop: '3.5rem', paddingBottom: '1rem', borderTop: '2px dashed var(--border)' }}>
+              <div className="vertical-section-header">
+                <span className="vsh-badge" style={{ background: '#e0f2fe', color: '#0369a1' }}>VERTICAL 2 OF 3</span>
+                <h2>💼 Tax, Corporate, MSME &amp; Loan Advisory</h2>
+                <p>3-Day GST registrations, error-free ITR filings, MCA company incorporation, GEM &amp; OEM vendor setup, and PMEGP/Mudra bank subsidies.</p>
+              </div>
+            </div>
+          )}
           {/* GST */}
           <section className="service-detail-section" id="gst">
             <div className="container">
@@ -938,8 +1007,17 @@ export default function Services() {
       )}
 
       {/* GOVERNMENT & STUDENT SERVICES (JANA SEVA KENDRA) TAB PANEL */}
-      {activeTab === 'govt-services' && (
+      {(activeTab === 'all' || activeTab === 'govt-services') && (
         <div id="govt-services" className="tab-panel active">
+          {activeTab === 'all' && (
+            <div className="container" style={{ paddingTop: '3.5rem', paddingBottom: '1rem', borderTop: '2px dashed var(--border)' }}>
+              <div className="vertical-section-header">
+                <span className="vsh-badge" style={{ background: '#fef3c7', color: '#b45309' }}>VERTICAL 3 OF 3</span>
+                <h2>📜 Jana Seva Kendra (CSC), Govt Certificates &amp; Student Desk</h2>
+                <p>Fast online citizen desk for official caste, income, residence certificates, PAN/Aadhaar corrections, RTO driving licenses, and scholarships.</p>
+              </div>
+            </div>
+          )}
           {/* CSC CERTIFICATES */}
           <section className="service-detail-section" id="certificates">
             <div className="container">
