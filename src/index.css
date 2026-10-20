@@ -1647,12 +1647,12 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 45s linear infinite;
+  animation: marquee-scroll 75s linear infinite;
   gap: 1.25rem;
   align-items: center;
 }
 .marquee-track-reverse {
-  animation: marquee-scroll-reverse 45s linear infinite;
+  animation: marquee-scroll-reverse 75s linear infinite;
 }
 .marquee-track:hover {
   animation-play-state: paused;

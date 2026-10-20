@@ -199,46 +199,6 @@ export default function Home() {
       {/* PARTNERS MARQUEE WITH REAL LOGOS */}
       <PartnerMarquee />
 
-      {/* STATS SECTION */}
-      <section className="stats-section" aria-label="Statistics">
-        <div className="container">
-          <div className="section-header reveal">
-            <div className="section-tag">Our Numbers Speak</div>
-            <div className="gold-divider"><span>a decade of proven trust</span></div>
-          </div>
-          <div className="stats-grid">
-            <div className="stat-card reveal">
-              <div className="stat-icon-wrap">😊</div>
-              <div className="stat-number">
-                <StatCounter target={2000} suffix="+" />
-              </div>
-              <div className="stat-label">Happy Families</div>
-            </div>
-            <div className="stat-card reveal">
-              <div className="stat-icon-wrap">📋</div>
-              <div className="stat-number">
-                <StatCounter target={5000} suffix="+" />
-              </div>
-              <div className="stat-label">Policies &amp; Tax Filings</div>
-            </div>
-            <div className="stat-card reveal">
-              <div className="stat-icon-wrap">🏆</div>
-              <div className="stat-number">
-                <StatCounter target={98} suffix="%" />
-              </div>
-              <div className="stat-label">Claim Settlement Ratio</div>
-            </div>
-            <div className="stat-card reveal">
-              <div className="stat-icon-wrap">⭐</div>
-              <div className="stat-number">
-                <StatCounter target={10} suffix="+" />
-              </div>
-              <div className="stat-label">Years of Excellence</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* COMPLETE SERVICES PORTFOLIO (ALL 26+ SERVICES VISIBLE & SEARCHABLE) */}
       <section className="services-section" aria-labelledby="services-h" id="services-h">
         <div className="container">
@@ -453,6 +413,46 @@ export default function Home() {
             <Link to="/services?tab=all" className="btn btn-primary btn-lg">
               Explore Complete In-Depth Documentation →
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* STATS SECTION */}
+      <section className="stats-section" aria-label="Statistics">
+        <div className="container">
+          <div className="section-header reveal">
+            <div className="section-tag">Our Numbers Speak</div>
+            <div className="gold-divider"><span>a decade of proven trust</span></div>
+          </div>
+          <div className="stats-grid">
+            <div className="stat-card reveal">
+              <div className="stat-icon-wrap">😊</div>
+              <div className="stat-number">
+                <StatCounter target={2000} suffix="+" />
+              </div>
+              <div className="stat-label">Happy Families</div>
+            </div>
+            <div className="stat-card reveal">
+              <div className="stat-icon-wrap">📋</div>
+              <div className="stat-number">
+                <StatCounter target={5000} suffix="+" />
+              </div>
+              <div className="stat-label">Policies &amp; Tax Filings</div>
+            </div>
+            <div className="stat-card reveal">
+              <div className="stat-icon-wrap">🏆</div>
+              <div className="stat-number">
+                <StatCounter target={98} suffix="%" />
+              </div>
+              <div className="stat-label">Claim Settlement Ratio</div>
+            </div>
+            <div className="stat-card reveal">
+              <div className="stat-icon-wrap">⭐</div>
+              <div className="stat-number">
+                <StatCounter target={10} suffix="+" />
+              </div>
+              <div className="stat-label">Years of Excellence</div>
+            </div>
           </div>
         </div>
       </section>
