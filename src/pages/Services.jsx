@@ -130,15 +130,91 @@ export default function Services() {
       {/* INSURANCE & WEALTH TAB PANEL */}
       {(activeTab === 'all' || activeTab === 'insurance-services') && (
         <div id="insurance-services" className="tab-panel active">
-          {activeTab === 'all' && (
-            <div className="container" style={{ paddingTop: '2rem', paddingBottom: '1rem' }}>
+          <div className="container" style={{ paddingTop: activeTab === 'all' ? '2rem' : '1.5rem', paddingBottom: '1.5rem' }}>
+            {activeTab === 'all' && (
               <div className="vertical-section-header">
                 <span className="vsh-badge">VERTICAL 1 OF 3</span>
                 <h2>🛡️ Insurance, Risk Protection &amp; Wealth Planning</h2>
-                <p>30+ Insurer partners, cashless hospital networks, zero-commission bias, and lifetime claim assistance.</p>
+                <p>Official PBPartner POSP backed by Policybazaar. Direct empanelment with 40+ leading Life, Health, and General Insurers.</p>
+              </div>
+            )}
+
+            {/* PB PARTNERS OFFICIAL POSP TRUST CARD */}
+            <div className="pb-posp-trust-card" style={{ marginTop: activeTab === 'all' ? '1rem' : '0' }}>
+              <div className="pb-posp-card-header">
+                <div className="pb-posp-brand-lockup">
+                  <div className="pb-logo-container">
+                    <img 
+                      src="/images/pbpartners-logo.png" 
+                      alt="PBPartners - A brand of Policybazaar Insurance Brokers Private Limited" 
+                      className="pb-official-logo"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="pb-brand-text">
+                    <div className="pb-brand-title-wrap">
+                      <span className="pb-brand-title">Verified &amp; Certified PBPartner POSP</span>
+                      <span className="pb-verified-badge">
+                        <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14" aria-hidden="true">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        Certified POSP
+                      </span>
+                    </div>
+                    <p className="pb-brand-sub">
+                      PBPartners is a brand of <strong>Policybazaar Insurance Brokers Private Limited</strong>
+                    </p>
+                    <div className="pb-brand-motto">
+                      Direct tie-up with 40+ insurers • Zero commission markup • 100% claim settlement assistance
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pb-posp-cta-box">
+                  <a 
+                    href="https://wa.me/919937000100?text=Hello%20Surevriksha%2C%20I%20want%20to%20compare%20insurance%20quotes%20via%20PBPartners%20POSP." 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="btn btn-gold pb-cta-btn"
+                  >
+                    Compare 40+ Insurers on WhatsApp →
+                  </a>
+                </div>
+              </div>
+
+              {/* Fast trust highlights */}
+              <div className="pb-posp-pillars-grid">
+                <div className="pb-pillar-item">
+                  <div className="pb-pillar-icon">🏥</div>
+                  <div className="pb-pillar-content">
+                    <div className="pb-pillar-title">15,000+ Cashless Hospitals</div>
+                    <div className="pb-pillar-desc">Instant cashless admission via Star, Care, Niva Bupa &amp; HDFC ERGO</div>
+                  </div>
+                </div>
+                <div className="pb-pillar-item">
+                  <div className="pb-pillar-icon">🛡️</div>
+                  <div className="pb-pillar-content">
+                    <div className="pb-pillar-title">40+ Top Insurers</div>
+                    <div className="pb-pillar-desc">Compare LIC, HDFC Life, Tata AIA, SBI Life &amp; Digit side-by-side</div>
+                  </div>
+                </div>
+                <div className="pb-pillar-item">
+                  <div className="pb-pillar-icon">⚡</div>
+                  <div className="pb-pillar-content">
+                    <div className="pb-pillar-title">Instant Digital Policy</div>
+                    <div className="pb-pillar-desc">2-minute paperless issuance directly from insurer systems</div>
+                  </div>
+                </div>
+                <div className="pb-pillar-item">
+                  <div className="pb-pillar-icon">🤝</div>
+                  <div className="pb-pillar-content">
+                    <div className="pb-pillar-title">Dedicated Claim Assistance</div>
+                    <div className="pb-pillar-desc">End-to-end claim filing with Policybazaar priority claim desk</div>
+                  </div>
+                </div>
               </div>
             </div>
-          )}
+          </div>
           {/* HEALTH */}
           <section className="service-detail-section" id="health">
             <div className="container">

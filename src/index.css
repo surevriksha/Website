@@ -1389,8 +1389,8 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
    PARTNERS MARQUEE
    ============================== */
 .partners-section {
-  padding: 3rem 0;
-  background: var(--white);
+  padding: 3.5rem 0;
+  background: linear-gradient(180deg, #f8fbf8 0%, #ffffff 100%);
   border-bottom: 1px solid var(--border);
   position: relative;
   overflow: hidden;
@@ -1398,50 +1398,523 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
 .partners-section .section-tag {
   text-align: center;
   display: block;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
+
+/* PB PARTNERS POSP TRUST CARD */
+.pb-posp-trust-card {
+  background: #ffffff;
+  border: 1px solid rgba(15, 157, 88, 0.22);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 35px rgba(11, 110, 61, 0.07), 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 1.75rem 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+  background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+}
+.pb-posp-trust-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #0b6e3d 0%, #0F9D58 45%, #D4AF37 100%);
+}
+.pb-posp-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(216, 232, 220, 0.7);
+  margin-bottom: 1.25rem;
+}
+.pb-posp-brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+.pb-logo-container {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+.pb-official-logo {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+}
+.pb-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.pb-brand-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.pb-brand-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--green-deeper);
+  letter-spacing: -0.01em;
+}
+.pb-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.pb-check-icon {
+  color: #10b981;
+}
+.pb-brand-sub {
+  font-size: 0.88rem;
+  color: #334155;
+  margin: 0;
+}
+.pb-brand-sub strong {
+  color: #0f172a;
+}
+.pb-brand-motto {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.pb-posp-cta-box {
+  flex-shrink: 0;
+}
+.pb-cta-btn {
+  padding: 0.65rem 1.25rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+/* Trust Pillars Grid */
+.pb-posp-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.pb-pillar-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 0.85rem;
+  background: #fbfdfb;
+  border: 1px solid #eef5ef;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+.pb-pillar-item:hover {
+  background: #ffffff;
+  border-color: #d1fae5;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08);
+  transform: translateY(-2px);
+}
+.pb-pillar-icon {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+.pb-pillar-title {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--green-deeper);
+  margin-bottom: 0.15rem;
+}
+.pb-pillar-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+/* Controls Wrapper (Pills + Mode Toggle) */
+.partner-controls-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.partner-filter-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.partner-pill-btn {
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.partner-pill-btn:hover {
+  border-color: var(--green);
+  color: var(--green-dark);
+  background: #f0fdf4;
+}
+.partner-pill-btn.active {
+  background: var(--green-deeper);
+  color: #ffffff;
+  border-color: var(--green-deeper);
+  box-shadow: 0 2px 8px rgba(11, 110, 61, 0.2);
+}
+
+.view-mode-toggle {
+  display: flex;
+  background: #f1f5f9;
+  padding: 0.25rem;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+}
+.view-toggle-btn {
+  padding: 0.4rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #475569;
+  transition: var(--transition);
+}
+.view-toggle-btn.active {
+  background: #ffffff;
+  color: var(--green-deeper);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* MARQUEE STREAM STYLES */
+.marquee-block {
+  margin-bottom: 1.25rem;
+}
+.marquee-row-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.mrl-badge {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.health-life-badge {
+  background: #dcfce7;
+  color: #166534;
+}
+.general-badge {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
 .marquee-wrapper {
   overflow: hidden;
   width: 100%;
   position: relative;
-  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  padding: 0.5rem 0;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 35s linear infinite;
-  gap: 3.5rem;
+  animation: marquee-scroll 45s linear infinite;
+  gap: 1.25rem;
   align-items: center;
+}
+.marquee-track-reverse {
+  animation: marquee-scroll-reverse 45s linear infinite;
 }
 .marquee-track:hover {
   animation-play-state: paused;
 }
-.partner-logo {
-  height: 44px;
-  width: 140px;
+
+/* Partner Card Tile in Marquee */
+.partner-card-tile {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 0.5rem 0.85rem;
+  width: 155px;
+  height: 82px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+.partner-card-tile:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 10px 24px rgba(11, 110, 61, 0.12), 0 2px 6px rgba(0,0,0,0.04);
+  border-color: #10b981;
+}
+.pct-inner {
+  height: 50px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.45;
-  transition: var(--transition);
-  filter: grayscale(1);
 }
-.partner-logo:hover {
-  opacity: 1;
-  filter: grayscale(0);
-  transform: scale(1.08);
-}
-.partner-logo svg {
-  max-height: 100%;
-  max-width: 100%;
+.pct-img {
+  max-height: 48px;
+  max-width: 130px;
   width: auto;
   height: auto;
+  object-fit: contain;
+}
+.pct-tag {
+  font-size: 0.65rem;
+  color: #64748b;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  margin-top: 0.15rem;
+}
+
+.bank-card-tile {
+  border-style: dashed;
+  background: #fafaf9;
+}
+.pct-bank-text {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 @keyframes marquee-scroll {
   0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-50% - 1.75rem)); }
+  100% { transform: translateX(calc(-50% - 0.625rem)); }
+}
+@keyframes marquee-scroll-reverse {
+  0% { transform: translateX(calc(-50% - 0.625rem)); }
+  100% { transform: translateX(0); }
+}
+
+/* INTERACTIVE LOGOS GRID VIEW */
+.insurer-grid-experience {
+  margin: 1.5rem 0;
+}
+.ig-search-bar {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto 1.5rem auto;
+}
+.ig-search-input {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  padding-right: 2.5rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  outline: none;
+  transition: var(--transition);
+}
+.ig-search-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(15, 157, 88, 0.15);
+}
+.ig-search-clear {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.ig-grid-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+}
+.ig-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 0.85rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 125px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.ig-card:hover {
+  transform: translateY(-4px);
+  border-color: #0b6e3d;
+  box-shadow: 0 10px 24px rgba(11, 110, 61, 0.12);
+}
+.ig-card-img-wrap {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.ig-card-img {
+  max-height: 48px;
+  max-width: 120px;
+  object-fit: contain;
+}
+.ig-card-info {
+  margin-top: 0.4rem;
+  width: 100%;
+}
+.ig-card-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ig-card-tag {
+  font-size: 0.68rem;
+  color: #64748b;
+  margin-top: 0.15rem;
+}
+.ig-card-hover-action {
+  margin-top: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  opacity: 0.85;
+  transition: var(--transition);
+}
+.ig-card:hover .ig-card-hover-action {
+  color: #0b6e3d;
+  opacity: 1;
+}
+
+.ig-empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #64748b;
+}
+
+/* Trust Strip */
+.partner-trust-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(216, 232, 220, 0.6);
+  font-size: 0.84rem;
+  color: #475569;
+}
+.pts-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.pts-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: #dcfce7;
+  color: #15803d;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+/* Responsiveness */
+@media (max-width: 1024px) {
+  .pb-posp-pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ig-grid-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .pb-posp-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .pb-posp-cta-box {
+    width: 100%;
+  }
+  .pb-cta-btn {
+    width: 100%;
+    text-align: center;
+  }
+  .partner-controls-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .partner-filter-pills {
+    justify-content: center;
+  }
+  .view-mode-toggle {
+    align-self: center;
+  }
+  .ig-grid-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+}
+@media (max-width: 480px) {
+  .pb-posp-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+  .ig-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  .partner-trust-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
 }
 
 /* ==============================

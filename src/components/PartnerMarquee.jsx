@@ -1,393 +1,362 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { PB_PARTNERS_INFO, INSURER_PARTNERS, BANKING_PARTNERS } from '../data/insurancePartners';
 
 export default function PartnerMarquee() {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [viewMode, setViewMode] = useState('marquee'); // 'marquee' or 'grid'
+  const [searchQuery, setSearchQuery] = useState('');
 
-  // Authentic, pixel-accurate vector logos for top insurance companies in India
-  const insurancePartners = [
-    {
-      name: "Life Insurance Corporation of India",
-      short: "LIC",
-      category: "life",
-      svg: (
-        <svg viewBox="0 0 160 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="LIC Logo">
-          <circle cx="24" cy="24" r="18" fill="#004D99" />
-          {/* Hands holding lamp motif */}
-          <path d="M15 28c4 3 14 3 18 0M13 24c3-2 5-4 5-7 0 5 4 7 6 7s6-2 6-7c0 3 2 5 5 7" stroke="#FFCC00" strokeWidth="2.2" strokeLinecap="round" />
-          <circle cx="24" cy="14" r="3.5" fill="#FFCC00" />
-          <text x="50" y="27" fill="#004D99" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="20" letterSpacing="1.5">LIC</text>
-          <text x="50" y="38" fill="#008080" fontWeight="700" fontFamily="system-ui, sans-serif" fontSize="8.5" letterSpacing="0.8">OF INDIA</text>
-        </svg>
-      )
-    },
-    {
-      name: "HDFC ERGO General Insurance",
-      short: "HDFC ERGO",
-      category: "general",
-      svg: (
-        <svg viewBox="0 0 160 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="HDFC ERGO Logo">
-          <rect x="6" y="8" width="32" height="32" rx="4" fill="#004C8F" />
-          <path d="M14 16h6v16h-6V16zm10 0h6v16h-6V16z" fill="#FFFFFF" />
-          <rect x="6" y="22" width="32" height="4" fill="#ED232A" />
-          <text x="46" y="23" fill="#004C8F" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="15" letterSpacing="0.5">HDFC</text>
-          <text x="46" y="37" fill="#ED232A" fontWeight="800" fontFamily="system-ui, sans-serif" fontSize="12" letterSpacing="2">ERGO</text>
-        </svg>
-      )
-    },
-    {
-      name: "ICICI Lombard General Insurance",
-      short: "ICICI Lombard",
-      category: "general",
-      svg: (
-        <svg viewBox="0 0 170 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="ICICI Lombard Logo">
-          <circle cx="24" cy="24" r="18" fill="#861F41" />
-          <rect x="18" y="18" width="12" height="12" rx="2" fill="#F37021" />
-          <text x="50" y="24" fill="#861F41" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="15" letterSpacing="0.5">ICICI</text>
-          <text x="50" y="37" fill="#F37021" fontWeight="800" fontFamily="system-ui, sans-serif" fontSize="11" letterSpacing="1">LOMBARD</text>
-        </svg>
-      )
-    },
-    {
-      name: "Star Health & Allied Insurance",
-      short: "Star Health",
-      category: "health",
-      svg: (
-        <svg viewBox="0 0 160 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="Star Health Logo">
-          {/* Dual overlapping star */}
-          <path d="M22 6l3.5 10.5h11l-9 6.5 3.5 11-9-6.8-9 6.8 3.5-11-9-6.5h11L22 6z" fill="#004990" />
-          <path d="M22 12l2.2 7h7.3l-6 4.5 2.3 7.5-5.8-4.5-5.8 4.5 2.3-7.5-6-4.5h7.3L22 12z" fill="#E31837" />
-          <text x="48" y="23" fill="#004990" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="15" letterSpacing="1">STAR</text>
-          <text x="48" y="37" fill="#E31837" fontWeight="800" fontFamily="system-ui, sans-serif" fontSize="11" letterSpacing="1.2">HEALTH</text>
-        </svg>
-      )
-    },
-    {
-      name: "Care Health Insurance",
-      short: "Care Health",
-      category: "health",
-      svg: (
-        <svg viewBox="0 0 160 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="Care Health Logo">
-          <circle cx="24" cy="24" r="18" fill="#00A3AD" />
-          <path d="M24 13v22M13 24h22" stroke="#FFFFFF" strokeWidth="4.5" strokeLinecap="round" />
-          <text x="50" y="30" fill="#00A3AD" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="22" letterSpacing="0.5">care</text>
-          <text x="96" y="30" fill="#2D3748" fontWeight="600" fontFamily="system-ui, sans-serif" fontSize="10">HEALTH</text>
-        </svg>
-      )
-    },
-    {
-      name: "Tata AIG General Insurance",
-      short: "Tata AIG",
-      category: "general",
-      svg: (
-        <svg viewBox="0 0 160 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="Tata AIG Logo">
-          <rect x="6" y="8" width="32" height="32" rx="6" fill="#1C3F94" />
-          <path d="M12 16h20M22 16v16" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" />
-          <text x="46" y="23" fill="#1C3F94" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="16" letterSpacing="1">TATA</text>
-          <text x="46" y="36" fill="#00A79D" fontWeight="800" fontFamily="system-ui, sans-serif" fontSize="13" letterSpacing="2">AIG</text>
-        </svg>
-      )
-    },
-    {
-      name: "Bajaj Allianz",
-      short: "Bajaj Allianz",
-      category: "general",
-      svg: (
-        <svg viewBox="0 0 170 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="Bajaj Allianz Logo">
-          <circle cx="24" cy="24" r="18" fill="#004B87" />
-          <path d="M17 24h14M24 17v14" stroke="#FFFFFF" strokeWidth="2.5" />
-          <circle cx="24" cy="24" r="12" stroke="#FFFFFF" strokeWidth="1.5" strokeDasharray="3 3" />
-          <text x="50" y="23" fill="#004B87" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="13" letterSpacing="0.5">BAJAJ</text>
-          <text x="50" y="37" fill="#004B87" fontWeight="700" fontFamily="system-ui, sans-serif" fontSize="12">Allianz</text>
-        </svg>
-      )
-    },
-    {
-      name: "Niva Bupa Health Insurance",
-      short: "Niva Bupa",
-      category: "health",
-      svg: (
-        <svg viewBox="0 0 160 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="Niva Bupa Logo">
-          <path d="M14 24c0-7 10-12 10-12s10 5 10 12c0 6-5 10-10 10s-10-4-10-10z" fill="#009688" />
-          <circle cx="24" cy="22" r="5" fill="#FF5722" />
-          <text x="48" y="22" fill="#009688" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="14">niva</text>
-          <text x="48" y="36" fill="#FF5722" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="14">bupa</text>
-        </svg>
-      )
-    },
-    {
-      name: "SBI Life Insurance",
-      short: "SBI Life",
-      category: "life",
-      svg: (
-        <svg viewBox="0 0 160 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="SBI Life Logo">
-          <circle cx="24" cy="24" r="18" fill="#0091DF" />
-          <circle cx="24" cy="24" r="7" fill="#FFFFFF" />
-          <rect x="22" y="24" width="4" height="14" fill="#FFFFFF" />
-          <text x="50" y="24" fill="#0091DF" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="17" letterSpacing="0.5">SBI</text>
-          <text x="50" y="37" fill="#2D3748" fontWeight="800" fontFamily="system-ui, sans-serif" fontSize="12">Life</text>
-        </svg>
-      )
-    },
-    {
-      name: "Go Digit General Insurance",
-      short: "Go Digit",
-      category: "general",
-      svg: (
-        <svg viewBox="0 0 150 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="Go Digit Logo">
-          <circle cx="24" cy="24" r="18" fill="#FFC72C" />
-          <text x="17" y="31" fill="#1D252C" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="22">d</text>
-          <text x="50" y="31" fill="#1D252C" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="21" letterSpacing="0.8">digit</text>
-        </svg>
-      )
-    },
-    {
-      name: "Max Life Insurance",
-      short: "Max Life",
-      category: "life",
-      svg: (
-        <svg viewBox="0 0 160 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="Max Life Logo">
-          <rect x="6" y="8" width="32" height="32" rx="4" fill="#0A1128" />
-          <path d="M14 16l6 8 6-8M14 30h12" stroke="#E63946" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-          <text x="46" y="23" fill="#0A1128" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="15" letterSpacing="0.5">MAX</text>
-          <text x="46" y="37" fill="#E63946" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="13" letterSpacing="1">LIFE</text>
-        </svg>
-      )
-    },
-    {
-      name: "Aditya Birla Capital",
-      short: "Aditya Birla",
-      category: "life",
-      svg: (
-        <svg viewBox="0 0 170 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="Aditya Birla Logo">
-          <path d="M24 7l15 25H9L24 7z" fill="#A30000" />
-          <circle cx="24" cy="22" r="5" fill="#F8B133" />
-          <text x="48" y="23" fill="#A30000" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="12" letterSpacing="0.5">ADITYA BIRLA</text>
-          <text x="48" y="36" fill="#2D3748" fontWeight="700" fontFamily="system-ui, sans-serif" fontSize="10" letterSpacing="1.5">CAPITAL</text>
-        </svg>
-      )
-    }
-  ];
+  // Filtered insurers for the grid view
+  const filteredInsurers = useMemo(() => {
+    return INSURER_PARTNERS.filter(partner => {
+      const matchesCategory = activeCategory === 'all' 
+        || (activeCategory === 'health' && partner.category === 'health')
+        || (activeCategory === 'life' && partner.category === 'life')
+        || (activeCategory === 'motor' && (partner.category === 'motor' || partner.category === 'general'))
+        || (activeCategory === 'general' && (partner.category === 'motor' || partner.category === 'general'));
 
-  // Authentic, pixel-accurate vector logos for top Banks & Lending partners in India
-  const bankPartners = [
-    {
-      name: "State Bank of India",
-      short: "SBI Bank",
-      category: "bank",
-      svg: (
-        <svg viewBox="0 0 160 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="State Bank of India Logo">
-          <circle cx="24" cy="24" r="18" fill="#280071" />
-          <circle cx="24" cy="24" r="7" fill="#0091DF" />
-          <rect x="22" y="24" width="4" height="14" fill="#0091DF" />
-          <circle cx="24" cy="24" r="3" fill="#FFFFFF" />
-          <text x="50" y="24" fill="#280071" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="17" letterSpacing="0.5">SBI</text>
-          <text x="50" y="36" fill="#0091DF" fontWeight="700" fontFamily="system-ui, sans-serif" fontSize="9" letterSpacing="1">STATE BANK</text>
-        </svg>
-      )
-    },
-    {
-      name: "HDFC Bank",
-      short: "HDFC Bank",
-      category: "bank",
-      svg: (
-        <svg viewBox="0 0 160 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="HDFC Bank Logo">
-          <rect x="6" y="8" width="32" height="32" rx="4" fill="#004C8F" />
-          <path d="M14 16h6v16h-6V16zm10 0h6v16h-6V16z" fill="#FFFFFF" />
-          <rect x="6" y="22" width="32" height="4" fill="#ED232A" />
-          <text x="46" y="24" fill="#004C8F" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="15" letterSpacing="0.5">HDFC</text>
-          <text x="46" y="37" fill="#004C8F" fontWeight="700" fontFamily="system-ui, sans-serif" fontSize="12" letterSpacing="1.5">BANK</text>
-        </svg>
-      )
-    },
-    {
-      name: "ICICI Bank",
-      short: "ICICI Bank",
-      category: "bank",
-      svg: (
-        <svg viewBox="0 0 160 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="ICICI Bank Logo">
-          <circle cx="24" cy="24" r="18" fill="#861F41" />
-          <rect x="18" y="18" width="12" height="12" rx="2" fill="#F37021" />
-          <text x="50" y="24" fill="#861F41" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="15" letterSpacing="0.5">ICICI</text>
-          <text x="50" y="37" fill="#F37021" fontWeight="800" fontFamily="system-ui, sans-serif" fontSize="12" letterSpacing="1.5">BANK</text>
-        </svg>
-      )
-    },
-    {
-      name: "Axis Bank",
-      short: "Axis Bank",
-      category: "bank",
-      svg: (
-        <svg viewBox="0 0 160 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="Axis Bank Logo">
-          <path d="M10 36L24 10l14 26h-8l-6-12-6 12H10z" fill="#97144D" />
-          <text x="48" y="24" fill="#97144D" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="16" letterSpacing="0.5">AXIS</text>
-          <text x="48" y="37" fill="#2D3748" fontWeight="700" fontFamily="system-ui, sans-serif" fontSize="12" letterSpacing="1">BANK</text>
-        </svg>
-      )
-    },
-    {
-      name: "Kotak Mahindra Bank",
-      short: "Kotak Bank",
-      category: "bank",
-      svg: (
-        <svg viewBox="0 0 170 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="Kotak Mahindra Bank Logo">
-          <rect x="6" y="8" width="32" height="32" rx="4" fill="#ED1C24" />
-          <text x="14" y="31" fill="#FFFFFF" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="22">k</text>
-          <text x="46" y="23" fill="#003366" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="15" letterSpacing="0.5">KOTAK</text>
-          <text x="46" y="36" fill="#ED1C24" fontWeight="700" fontFamily="system-ui, sans-serif" fontSize="10" letterSpacing="0.8">MAHINDRA</text>
-        </svg>
-      )
-    },
-    {
-      name: "Punjab National Bank",
-      short: "PNB",
-      category: "bank",
-      svg: (
-        <svg viewBox="0 0 160 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="Punjab National Bank Logo">
-          <circle cx="24" cy="24" r="18" fill="#A21D21" />
-          <path d="M16 16h10c3 0 5 2 5 5s-2 5-5 5h-4v6h-6V16zm6 6h4c1 0 2-1 2-2s-1-2-2-2h-4v4z" fill="#F8A51D" />
-          <text x="48" y="24" fill="#A21D21" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="17" letterSpacing="1">PNB</text>
-          <text x="48" y="36" fill="#2D3748" fontWeight="700" fontFamily="system-ui, sans-serif" fontSize="8.5" letterSpacing="0.5">PUNJAB NATIONAL</text>
-        </svg>
-      )
-    },
-    {
-      name: "Bank of Baroda",
-      short: "Bank of Baroda",
-      category: "bank",
-      svg: (
-        <svg viewBox="0 0 170 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="Bank of Baroda Logo">
-          <rect x="6" y="8" width="32" height="32" rx="6" fill="#F26522" />
-          <circle cx="22" cy="24" r="10" stroke="#FFFFFF" strokeWidth="2.5" />
-          <path d="M22 17v7l4 4" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" />
-          <text x="46" y="22" fill="#F26522" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="12" letterSpacing="0.5">BANK OF</text>
-          <text x="46" y="36" fill="#003366" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="15" letterSpacing="0.5">BARODA</text>
-        </svg>
-      )
-    },
-    {
-      name: "SIDBI & MSME / Mudra",
-      short: "SIDBI / Mudra",
-      category: "bank",
-      svg: (
-        <svg viewBox="0 0 170 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="SIDBI & Mudra Logo">
-          <circle cx="24" cy="24" r="18" fill="#006699" />
-          <path d="M15 24h18M24 15v18M18 18l12 12M30 18L18 30" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" />
-          <text x="48" y="23" fill="#006699" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="15" letterSpacing="0.5">SIDBI</text>
-          <text x="48" y="36" fill="#D97706" fontWeight="800" fontFamily="system-ui, sans-serif" fontSize="10" letterSpacing="0.8">MUDRA / PMEGP</text>
-        </svg>
-      )
-    },
-    {
-      name: "Bajaj Finserv",
-      short: "Bajaj Finserv",
-      category: "bank",
-      svg: (
-        <svg viewBox="0 0 170 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="Bajaj Finserv Logo">
-          <circle cx="24" cy="24" r="18" fill="#004B87" />
-          <path d="M16 24h16M24 16v16" stroke="#FFFFFF" strokeWidth="2" />
-          <text x="48" y="23" fill="#004B87" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="13" letterSpacing="0.5">BAJAJ</text>
-          <text x="48" y="37" fill="#F37021" fontWeight="800" fontFamily="system-ui, sans-serif" fontSize="12" letterSpacing="0.5">FINSERV</text>
-        </svg>
-      )
-    },
-    {
-      name: "Tata Capital",
-      short: "Tata Capital",
-      category: "bank",
-      svg: (
-        <svg viewBox="0 0 160 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="partner-svg" aria-label="Tata Capital Logo">
-          <rect x="6" y="8" width="32" height="32" rx="4" fill="#00539F" />
-          <path d="M12 16h20M22 16v16" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" />
-          <text x="46" y="23" fill="#00539F" fontWeight="900" fontFamily="system-ui, sans-serif" fontSize="14" letterSpacing="0.5">TATA</text>
-          <text x="46" y="36" fill="#4B5563" fontWeight="800" fontFamily="system-ui, sans-serif" fontSize="11" letterSpacing="1">CAPITAL</text>
-        </svg>
-      )
-    }
-  ];
+      const matchesSearch = searchQuery.trim() === ''
+        || partner.name.toLowerCase().includes(searchQuery.toLowerCase())
+        || partner.short.toLowerCase().includes(searchQuery.toLowerCase())
+        || partner.tag.toLowerCase().includes(searchQuery.toLowerCase());
 
-  // Infinite marquee lists
-  const marqueeInsurers = [...insurancePartners, ...insurancePartners];
-  const marqueeBanks = [...bankPartners, ...bankPartners];
+      return matchesCategory && matchesSearch;
+    });
+  }, [activeCategory, searchQuery]);
+
+  // Infinite marquee lists for smooth continuous scrolling
+  // Split into Row 1 (Health & Life) and Row 2 (Motor, General & Banks)
+  const row1Partners = useMemo(() => {
+    const list = INSURER_PARTNERS.filter(p => p.category === 'health' || p.category === 'life');
+    return [...list, ...list];
+  }, []);
+
+  const row2Partners = useMemo(() => {
+    const list = [
+      ...INSURER_PARTNERS.filter(p => p.category === 'motor' || p.category === 'general'),
+      ...BANKING_PARTNERS.map(b => ({
+        id: b.short.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+        name: b.name,
+        short: b.short,
+        category: 'bank',
+        tag: b.tag,
+        isBank: true
+      }))
+    ];
+    return [...list, ...list];
+  }, []);
 
   return (
-    <section className="partners-section" aria-label="Our Trusted Insurers and Banking Partners">
+    <section className="partners-section" aria-label="Official Tie-Ups, Empanelled Insurers and PBPartner POSP Credentials">
       <div className="container">
-        <div className="partners-header">
-          <div className="section-tag" style={{ margin: '0 auto 0.5rem auto' }}>Official Tie-Ups &amp; Empanelments</div>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--green-deeper)', textAlign: 'center', margin: '0.25rem 0 1rem 0' }}>
-            Empanelled with India&apos;s <span style={{ color: 'var(--gold-dark)' }}>Leading Insurers &amp; Banks</span>
+
+        {/* ==============================================================
+            PB PARTNERS POSP TRUST BANNER (HIGH CREDIBILITY CARD)
+            ============================================================== */}
+        <div className="pb-posp-trust-card reveal">
+          <div className="pb-posp-card-header">
+            <div className="pb-posp-brand-lockup">
+              <div className="pb-logo-container">
+                <img 
+                  src="/images/pbpartners-logo.png" 
+                  alt="PBPartners - A brand of Policybazaar Insurance Brokers Private Limited" 
+                  className="pb-official-logo"
+                  loading="lazy"
+                />
+              </div>
+              <div className="pb-brand-text">
+                <div className="pb-brand-title-wrap">
+                  <span className="pb-brand-title">Verified &amp; Certified PBPartner POSP</span>
+                  <span className="pb-verified-badge" title="Officially Certified Partner">
+                    <svg viewBox="0 0 20 20" fill="currentColor" className="pb-check-icon" width="14" height="14" aria-hidden="true">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Certified POSP
+                  </span>
+                </div>
+                <p className="pb-brand-sub">
+                  PBPartners is a brand of <strong>Policybazaar Insurance Brokers Private Limited</strong>
+                </p>
+                <div className="pb-brand-motto">#EkRishtaBharoseKa • IRDAI Regulated Pan-India Advisory</div>
+              </div>
+            </div>
+
+            <div className="pb-posp-cta-box">
+              <a 
+                href="https://wa.me/919937000100?text=Hello%20Surevriksha%2C%20I%20would%20like%20to%20compare%20insurance%20quotes%20via%20PBPartner%20POSP." 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn btn-gold pb-cta-btn"
+              >
+                Compare Quotes on WhatsApp →
+              </a>
+            </div>
+          </div>
+
+          {/* Key Trust Pillars */}
+          <div className="pb-posp-pillars-grid">
+            {PB_PARTNERS_INFO.highlights.map((item, idx) => (
+              <div className="pb-pillar-item" key={idx}>
+                <div className="pb-pillar-icon" aria-hidden="true">{item.icon}</div>
+                <div className="pb-pillar-content">
+                  <div className="pb-pillar-title">{item.title}</div>
+                  <div className="pb-pillar-desc">{item.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ==============================================================
+            SECTION HEADER & CONTROLS
+            ============================================================== */}
+        <div className="partners-header" style={{ marginTop: '2.5rem' }}>
+          <div className="section-tag" style={{ margin: '0 auto 0.5rem auto' }}>
+            Empanelled Partners &amp; Direct Tie-Ups
+          </div>
+          <h2 style={{ fontSize: '1.9rem', fontWeight: 800, color: 'var(--green-deeper)', textAlign: 'center', margin: '0.25rem 0 0.5rem 0' }}>
+            Compare &amp; Buy from India&apos;s <span style={{ color: 'var(--gold-dark)' }}>Top 40+ Insurers Online</span>
           </h2>
-          <p style={{ textAlign: 'center', color: 'var(--text-light)', maxWidth: '640px', margin: '0 auto 1.5rem auto', fontSize: '0.95rem' }}>
-            Direct empanelment with 30+ top Insurance Companies and 20+ Leading Public &amp; Private Banks ensures you get the lowest premiums, highest claims ratio, and subsidized loan approvals.
+          <p style={{ textAlign: 'center', color: 'var(--text-light)', maxWidth: '720px', margin: '0 auto 1.5rem auto', fontSize: '0.95rem', lineHeight: '1.5' }}>
+            Through Policybazaar&apos;s PBPartner network, we bring you transparent premium comparisons, official insurer discounts, and dedicated claim assistance across India&apos;s top insurance companies.
           </p>
 
-          <div className="partner-filter-pills" style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', marginBottom: '1.75rem' }}>
-            <button 
-              type="button"
-              className={`partner-pill-btn ${activeCategory === 'all' ? 'active' : ''}`}
-              onClick={() => setActiveCategory('all')}
-            >
-              All Partners (40+)
-            </button>
-            <button 
-              type="button"
-              className={`partner-pill-btn ${activeCategory === 'insurance' ? 'active' : ''}`}
-              onClick={() => setActiveCategory('insurance')}
-            >
-              🛡️ Insurance Companies
-            </button>
-            <button 
-              type="button"
-              className={`partner-pill-btn ${activeCategory === 'banks' ? 'active' : ''}`}
-              onClick={() => setActiveCategory('banks')}
-            >
-              🏦 Banks &amp; Lending Partners
-            </button>
+          {/* Filter Bar & View Toggle */}
+          <div className="partner-controls-wrapper">
+            <div className="partner-filter-pills" role="tablist" aria-label="Insurance partner categories">
+              <button 
+                type="button"
+                role="tab"
+                aria-selected={activeCategory === 'all'}
+                className={`partner-pill-btn ${activeCategory === 'all' ? 'active' : ''}`}
+                onClick={() => setActiveCategory('all')}
+              >
+                All Partners ({INSURER_PARTNERS.length}+)
+              </button>
+              <button 
+                type="button"
+                role="tab"
+                aria-selected={activeCategory === 'health'}
+                className={`partner-pill-btn ${activeCategory === 'health' ? 'active' : ''}`}
+                onClick={() => setActiveCategory('health')}
+              >
+                🏥 Health Insurance
+              </button>
+              <button 
+                type="button"
+                role="tab"
+                aria-selected={activeCategory === 'life'}
+                className={`partner-pill-btn ${activeCategory === 'life' ? 'active' : ''}`}
+                onClick={() => setActiveCategory('life')}
+              >
+                🛡️ Life &amp; Term
+              </button>
+              <button 
+                type="button"
+                role="tab"
+                aria-selected={activeCategory === 'motor'}
+                className={`partner-pill-btn ${activeCategory === 'motor' ? 'active' : ''}`}
+                onClick={() => setActiveCategory('motor')}
+              >
+                🚗 Motor &amp; General
+              </button>
+              <button 
+                type="button"
+                role="tab"
+                aria-selected={activeCategory === 'banks'}
+                className={`partner-pill-btn ${activeCategory === 'banks' ? 'active' : ''}`}
+                onClick={() => setActiveCategory('banks')}
+              >
+                🏦 Banks &amp; Lending
+              </button>
+            </div>
+
+            {/* Toggle between Marquee and Grid */}
+            <div className="view-mode-toggle">
+              <button
+                type="button"
+                className={`view-toggle-btn ${viewMode === 'marquee' ? 'active' : ''}`}
+                onClick={() => setViewMode('marquee')}
+                title="Continuous Flowing View"
+              >
+                ⚡ Live Stream
+              </button>
+              <button
+                type="button"
+                className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                onClick={() => setViewMode('grid')}
+                title="Interactive Cards Grid"
+              >
+                🔲 All Logos Grid ({INSURER_PARTNERS.length})
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Row 1: Insurance Partners */}
-        {(activeCategory === 'all' || activeCategory === 'insurance') && (
-          <div className="marquee-block" style={{ marginBottom: activeCategory === 'all' ? '1.25rem' : '0' }}>
-            <div className="marquee-row-label">
-              <span className="mrl-badge">Insurers</span> Top Life &amp; General Insurance Partners
-            </div>
-            <div className="marquee-wrapper">
-              <div className="marquee-track">
-                {marqueeInsurers.map((partner, index) => (
-                  <div className="partner-logo" title={partner.name} key={`ins-${index}`}>
-                    {partner.svg}
+        {/* ==============================================================
+            VIEW MODE 1: DUAL-STREAM INFINITE MARQUEE WITH REAL LOGOS
+            ============================================================== */}
+        {viewMode === 'marquee' && (
+          <div className="marquee-experience">
+            {/* Stream 1: Health & Life Insurers */}
+            {(activeCategory === 'all' || activeCategory === 'health' || activeCategory === 'life') && (
+              <div className="marquee-block">
+                <div className="marquee-row-label">
+                  <span className="mrl-badge health-life-badge">Health &amp; Life</span> 
+                  Top Health &amp; Term Life Insurers (LIC, HDFC Life, Star Health, Care, Niva Bupa &amp; more)
+                </div>
+                <div className="marquee-wrapper">
+                  <div className="marquee-track">
+                    {row1Partners.map((partner, index) => (
+                      <div 
+                        className="partner-card-tile" 
+                        title={`${partner.name} - ${partner.tag}`} 
+                        key={`ins-r1-${index}`}
+                      >
+                        <div className="pct-inner">
+                          <img 
+                            src={partner.img} 
+                            alt={`${partner.name} logo`} 
+                            className="pct-img"
+                            loading="lazy" 
+                          />
+                        </div>
+                        <span className="pct-tag">{partner.tag}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* Stream 2: Motor, General Insurers & Banks */}
+            {(activeCategory === 'all' || activeCategory === 'motor' || activeCategory === 'general' || activeCategory === 'banks') && (
+              <div className="marquee-block" style={{ marginTop: '1.25rem' }}>
+                <div className="marquee-row-label">
+                  <span className="mrl-badge general-badge">Motor &amp; General</span> 
+                  Top Motor, Commercial Insurers &amp; Lending Partners (HDFC ERGO, ICICI Lombard, Tata AIG, Go Digit &amp; Banks)
+                </div>
+                <div className="marquee-wrapper">
+                  <div className="marquee-track marquee-track-reverse">
+                    {row2Partners.map((partner, index) => (
+                      <div 
+                        className={`partner-card-tile ${partner.isBank ? 'bank-card-tile' : ''}`} 
+                        title={`${partner.name} - ${partner.tag}`} 
+                        key={`ins-r2-${index}`}
+                      >
+                        <div className="pct-inner">
+                          {partner.img ? (
+                            <img 
+                              src={partner.img} 
+                              alt={`${partner.name} logo`} 
+                              className="pct-img"
+                              loading="lazy" 
+                            />
+                          ) : (
+                            <div className="pct-bank-text">
+                              <span className="pbt-icon">🏦</span>
+                              <span className="pbt-name">{partner.short}</span>
+                            </div>
+                          )}
+                        </div>
+                        <span className="pct-tag">{partner.tag}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
-        {/* Row 2: Banking & Lending Partners */}
-        {(activeCategory === 'all' || activeCategory === 'banks') && (
-          <div className="marquee-block">
-            <div className="marquee-row-label">
-              <span className="mrl-badge bank-badge">Lending</span> Premier Banking &amp; Mudra / Subsidy Partners
+        {/* ==============================================================
+            VIEW MODE 2: INTERACTIVE LOGO GRID (COMPARE & CHOOSE)
+            ============================================================== */}
+        {viewMode === 'grid' && (
+          <div className="insurer-grid-experience reveal">
+            <div className="ig-search-bar">
+              <input
+                type="text"
+                placeholder="Search insurer name (e.g. HDFC, Star Health, Care, LIC, Digit)..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="ig-search-input"
+                aria-label="Search insurer partners"
+              />
+              {searchQuery && (
+                <button 
+                  type="button" 
+                  onClick={() => setSearchQuery('')}
+                  className="ig-search-clear"
+                  aria-label="Clear search"
+                >
+                  ✕
+                </button>
+              )}
             </div>
-            <div className="marquee-wrapper">
-              <div className="marquee-track marquee-track-reverse">
-                {marqueeBanks.map((partner, index) => (
-                  <div className="partner-logo" title={partner.name} key={`bank-${index}`}>
-                    {partner.svg}
+
+            <div className="ig-grid-container">
+              {filteredInsurers.map((partner) => (
+                <a 
+                  key={partner.id} 
+                  href={`/contact?service=insurance&insurer=${encodeURIComponent(partner.short)}`}
+                  className="ig-card"
+                  title={`Get best quote for ${partner.name}`}
+                >
+                  <div className="ig-card-img-wrap">
+                    <img 
+                      src={partner.img} 
+                      alt={partner.name} 
+                      className="ig-card-img" 
+                      loading="lazy" 
+                    />
                   </div>
-                ))}
-              </div>
+                  <div className="ig-card-info">
+                    <div className="ig-card-name">{partner.short}</div>
+                    <div className="ig-card-tag">{partner.tag}</div>
+                  </div>
+                  <div className="ig-card-hover-action">
+                    <span>Compare Quote →</span>
+                  </div>
+                </a>
+              ))}
             </div>
+
+            {filteredInsurers.length === 0 && (
+              <div className="ig-empty-state">
+                <p>No insurer found matching &quot;{searchQuery}&quot;.</p>
+                <button 
+                  type="button" 
+                  className="btn btn-sm btn-gold" 
+                  onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}
+                >
+                  Reset Search
+                </button>
+              </div>
+            )}
           </div>
         )}
 
-        <div className="partner-trust-note" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap', marginTop: '1.75rem', fontSize: '0.85rem', color: 'var(--text-light)' }}>
-          <span>✓ 100% IRDAI Compliant Advisory</span>
-          <span>✓ Zero Commission Markup for Clients</span>
-          <span>✓ Cashless Hospital &amp; Garage Networks</span>
-          <span>✓ Instant Banking Loan Sanction Support</span>
+        {/* Trust Badges Strip */}
+        <div className="partner-trust-strip">
+          <div className="pts-item">
+            <span className="pts-check">✓</span>
+            <span><strong>Verified PBPartner POSP</strong> (Policybazaar Network)</span>
+          </div>
+          <div className="pts-item">
+            <span className="pts-check">✓</span>
+            <span><strong>100% IRDAI Compliant</strong> &amp; Zero Markup Guarantee</span>
+          </div>
+          <div className="pts-item">
+            <span className="pts-check">✓</span>
+            <span><strong>15,000+ Cashless Hospitals</strong> &amp; 10,000+ Garages</span>
+          </div>
+          <div className="pts-item">
+            <span className="pts-check">✓</span>
+            <span><strong>Dedicated Claim Desk</strong> &amp; Instant Issuance</span>
+          </div>
         </div>
+
       </div>
     </section>
   );

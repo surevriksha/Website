@@ -15,6 +15,10 @@ export default function Footer() {
               </div>
             </div>
             <p className="footer-brand-desc">Your lifelong partner in insurance and financial planning. Protecting families across India since 2014 with honesty, expertise, and genuine care.</p>
+            <div style={{ marginTop: '0.75rem', marginBottom: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(16, 185, 129, 0.1)', padding: '0.35rem 0.75rem', borderRadius: '6px', fontSize: '0.76rem', border: '1px solid rgba(16, 185, 129, 0.25)', color: '#a7f3d0' }}>
+              <span style={{ color: '#34d399', fontWeight: 900 }}>✓</span>
+              <span><strong>Verified PBPartner POSP</strong> (Policybazaar Network)</span>
+            </div>
             <div className="footer-socials" aria-label="Social media">
               <a href="#" className="social-btn" aria-label="Facebook">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -89,7 +93,7 @@ export default function Footer() {
         </div>
         <div className="footer-gold-bar"></div>
         <div className="footer-bottom">
-          <p>© 2024 SureVriksha Financial Advisory. All rights reserved. | Insurance subject to IRDAI regulations.</p>
+          <p>© 2026 SureVriksha Financial Advisory. All rights reserved. | Verified &amp; Certified PBPartner POSP (PBPartners is a brand of Policybazaar Insurance Brokers Pvt. Ltd.) | IRDAI Regulated.</p>
           <Link to="/privacy">Privacy Policy</Link>
         </div>
       </div>

@@ -33,14 +33,14 @@ export default function About() {
                 <div><div className="wbc-brand">SureVriksha</div><div className="wbc-sub">Financial Advisory • Est. 2014</div></div>
               </div>
               <div className="wbc-grid">
-                <div className="wbc-stat"><div className="wbc-num">30+</div><div className="wbc-lbl">Insurer Partners</div></div>
+                <div className="wbc-stat"><div className="wbc-num">40+</div><div className="wbc-lbl">Top Insurers</div></div>
                 <div className="wbc-stat"><div className="wbc-num">4.9★</div><div className="wbc-lbl">Google Rating</div></div>
-                <div className="wbc-stat"><div className="wbc-num">IRDAI</div><div className="wbc-lbl">Certified</div></div>
+                <div className="wbc-stat"><div className="wbc-num">PBPartner</div><div className="wbc-lbl">Certified POSP</div></div>
               </div>
               <div className="wbc-progress"><div className="wbc-progress-label"><span>Client Satisfaction</span><span>98%</span></div><div className="wbc-progress-bar"><div className="wbc-progress-fill" style={{ width: '98%' }}></div></div></div>
               <div className="wbc-badges" style={{ marginTop: '1.5rem' }}>
-                <div className="wbc-badge-chip">✅ Certified Advisor</div>
-                <div className="wbc-badge-chip">🏆 Top Rated 2024</div>
+                <div className="wbc-badge-chip">🛡️ Verified PBPartner POSP</div>
+                <div className="wbc-badge-chip">🏆 Policybazaar Network</div>
                 <div className="wbc-badge-chip">🔒 100% Transparent</div>
               </div>
             </div>
@@ -74,9 +74,9 @@ export default function About() {
             <h2 id="cred-h">Why 2,000+ Families <em style={{ fontStyle: 'italic', color: 'var(--gold-dark)' }}>Trust SureVriksha</em></h2>
           </div>
           <div className="badges-grid">
-            <div className="badge-card reveal"><div className="badge-icon">🏛️</div><h4>IRDAI Certified</h4><p>Fully licensed by India's Insurance Regulatory and Development Authority</p></div>
-            <div className="badge-card reveal"><div className="badge-icon">📜</div><h4>CFP Designation</h4><p>Certified Financial Planner with advanced expertise in personal and business finance</p></div>
-            <div className="badge-card reveal"><div className="badge-icon">🤝</div><h4>30+ Insurer Tie-ups</h4><p>Partnerships with India's top insurance companies for truly unbiased recommendations</p></div>
+            <div className="badge-card reveal"><div className="badge-icon">🏛️</div><h4>IRDAI Certified POSP</h4><p>Fully certified and registered under IRDAI guidelines for transparent Pan-India advisory</p></div>
+            <div className="badge-card reveal"><div className="badge-icon">🤝</div><h4>Verified PBPartner POSP</h4><p>Certified POSP by PBPartners (Policybazaar Insurance Brokers Pvt. Ltd.) across 40+ insurers</p></div>
+            <div className="badge-card reveal"><div className="badge-icon">🛡️</div><h4>40+ Insurer Tie-ups</h4><p>Direct digital access to India's top Life, Health, Motor and SME insurance companies</p></div>
             <div className="badge-card reveal"><div className="badge-icon">⭐</div><h4>4.9★ Average Rating</h4><p>Consistently rated 5 stars by clients across Google and trusted review platforms</p></div>
           </div>
         </div>

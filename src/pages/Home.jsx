@@ -173,7 +173,7 @@ export default function Home() {
                 </div>
                 <div className="hvc-badge">
                   <div className="hvc-badge-dot"></div>
-                  IRDAI Certified • ISO Compliant • Est. 2014
+                  Verified &amp; Certified PBPartner POSP • IRDAI Regulated • Est. 2014
                 </div>
               </div>
               <div className="hero-float hf-1"><span className="float-icon">🏆</span>Top Advisory 2026</div>
@@ -187,12 +187,12 @@ export default function Home() {
       {/* TRUST BAR */}
       <div className="trust-bar" role="list" aria-label="Trust indicators">
         <div className="trust-bar-inner">
-          <div className="trust-bar-item" role="listitem"><span className="tbi-icon">🛡️</span> IRDAI Certified Advisor</div>
-          <div className="trust-bar-item" role="listitem"><span className="tbi-icon">⭐</span> 4.9★ Google Rating</div>
-          <div className="trust-bar-item" role="listitem"><span className="tbi-icon">🏦</span> 30+ Insurers &amp; 20+ Banks</div>
-          <div className="trust-bar-item" role="listitem"><span className="tbi-icon">⚡</span> 2-Hour Claim Response</div>
-          <div className="trust-bar-item" role="listitem"><span className="tbi-icon">💼</span> 10+ Years Experience</div>
-          <div className="trust-bar-item" role="listitem"><span className="tbi-icon">🌍</span> Pan-India &amp; NRI Desk</div>
+          <div className="trust-bar-item" role="listitem"><span className="tbi-icon">🤝</span> Verified PBPartner POSP (Policybazaar)</div>
+          <div className="trust-bar-item" role="listitem"><span className="tbi-icon">⭐</span> 4.9★ Google Rating (500+ Reviews)</div>
+          <div className="trust-bar-item" role="listitem"><span className="tbi-icon">🛡️</span> 40+ Empanelled Insurers &amp; 10+ Banks</div>
+          <div className="trust-bar-item" role="listitem"><span className="tbi-icon">⚡</span> 100% Dedicated Claim Support</div>
+          <div className="trust-bar-item" role="listitem"><span className="tbi-icon">💼</span> 10+ Years Pan-India Advisory</div>
+          <div className="trust-bar-item" role="listitem"><span className="tbi-icon">🌍</span> Zero Markup Guarantee</div>
         </div>
       </div>
 
